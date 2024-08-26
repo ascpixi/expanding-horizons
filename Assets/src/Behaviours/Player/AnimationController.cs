@@ -4,7 +4,8 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public enum PlayerAnimationType {
+public enum PlayerAnimationType
+{
     Land,
     Jump,
     ExtraJump,

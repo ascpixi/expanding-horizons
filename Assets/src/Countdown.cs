@@ -3,7 +3,8 @@
 /// <summary>
 /// Represents a countdown.
 /// </summary>
-public class Countdown {
+public class Countdown
+{
     /// <summary>
     /// The position of the countdown.
     /// </summary>
