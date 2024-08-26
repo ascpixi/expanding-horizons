@@ -1,9 +1,5 @@
 using UnityEngine;
 
-// TODO: Older portions of this class have public fields in camelCase.
-// This will be refactored once the game jam ends and we have more time.
-// All new public fields should be named in PascalCase
-
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CollisionController))]
@@ -11,41 +7,41 @@ using UnityEngine;
 public class MovementController2D : MonoBehaviour
 {
     [Header("Movement")]
-    public float speed;
-    public float jumpHeight;
-    [Min(0)] public int extraJumpAmount = 0;
-    [Range(0, 1)] public float jumpControlMultiplier = 0.8f;
-    [Range(0, 1)] public float movingJumpMultiplier = 0.5f;
-    public float MaxJumpDuration = 1f;
+    public float Speed;
+    public float JumpHeight;
+    [Min(0)] public int ExtraJumpAmount = 0;
+    [Range(0, 1)] public float JumpControlMultiplier = 0.65f;
+    [Range(0, 1)] public float MovingJumpMultiplier = 0.85f;
+    public float MaxJumpDuration = 0.265f;
     
     [Header("Timing")]
-    public int accelerationSpeed = 3;
-    public int decelerationSpeed = 1;
-    [Range(0, 1)] public float accelerationBase = 0.5f;
-    public AnimationCurve accelerationCurve;
-    public AnimationCurve decelerationCurve;
+    public int AccelerationSpeed = 3;
+    public int DecelerationSpeed = 1;
+    [Range(0, 1)] public float AccelerationBase = 0.5f;
+    public AnimationCurve AccelerationCurve;
+    public AnimationCurve DecelerationCurve;
 
     [Header("Leniency")]
-    public float jumpInputBufferingTime;
-    public float jumpGroundedLeniency;
+    public float JumpInputBufferingTime = 0.15f;
+    public float JumpGroundedLeniency = 0.1f;
 
     [Header("Horizontal Gravity")]
-    public float VelocityCounteractStrength;
-    public float Drag;
-    public Vector2 WallJumpForce;
-    public float WallJumpLeniency;
-    public float WallSlideMaximumVelocity;
-    public float SameWallJumpCooldown = 0.25f;
+    public float VelocityCounteractStrength = 3;
+    public float Drag = 24;
+    public Vector2 WallJumpForce = new(9, 10);
+    public float WallJumpLeniency = 0.2f;
+    public float WallSlideMaximumVelocity = 2;
+    public float SameWallJumpCooldown = 0.2f;
     
     [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip[] groundHitSfx;
-    [Range(0, 1)] public float groundHitSfxVolume = 0.6f;
-    public AudioClip jumpSfx;
-    public AudioClip[] walkSfx;
-    public float walkSfxDelay = 0.4f;
-    [Range(0, 1)] public float walkSfxVolume = 0.5f;
-    public AudioClip extraJumpSfx;
+    public AudioSource Audio;
+    public AudioClip[] GroundHitSfx;
+    [Range(0, 1)] public float GroundHitSfxVolume = 0.6f;
+    public AudioClip JumpSfx;
+    public AudioClip[] WalkSfx;
+    public float WalkSfxDelay = 0.4f;
+    [Range(0, 1)] public float WalkSfxVolume = 0.5f;
+    public AudioClip ExtraJumpSfx;
 
     Rigidbody2D rb;
     CollisionController coll;
@@ -148,8 +144,8 @@ public class MovementController2D : MonoBehaviour
         if (CoyoteTime.Ended) {
             anim.PlayAnimation(PlayerAnimationType.ExtraJump);
 
-            if (extraJumpSfx != null) {
-                audioSource.PlayOneShot(extraJumpSfx);
+            if (ExtraJumpSfx != null) {
+                Audio.PlayOneShot(ExtraJumpSfx);
             }
             
             jumpsUsed++;
@@ -158,15 +154,15 @@ public class MovementController2D : MonoBehaviour
             anim.PlayAnimation(PlayerAnimationType.Jump);
             particles.SpawnJumpParticles();
             
-            if (jumpSfx != null) {
-                audioSource.PlayOneShot(jumpSfx);
+            if (JumpSfx != null) {
+                Audio.PlayOneShot(JumpSfx);
             }
         }
 
         jumping = true;
         //rb.velocity = new Vector2(rb.velocity.x, jumpHeight * (Moving ? movingJumpMultiplier : 1f));
 		
-		rb.velocity = new Vector2(0, jumpHeight * (Moving ? movingJumpMultiplier : 1f));
+		rb.velocity = new Vector2(0, JumpHeight * (Moving ? MovingJumpMultiplier : 1f));
         rb.angularVelocity = 0f;
         JumpBuffer.Position = 0f;
     }
@@ -180,7 +176,7 @@ public class MovementController2D : MonoBehaviour
         }
 
         // TODO: This probably should be its own SFX
-        audioSource.PlayOneShot(walkSfx.Random(), walkSfxVolume);
+        Audio.PlayOneShot(WalkSfx.Random(), WalkSfxVolume);
         //
         // var wallMat = GetWallTileMaterial();
         // if (wallMat != null) {
@@ -214,7 +210,7 @@ public class MovementController2D : MonoBehaviour
 		}
 
         if (Input.GetButtonDown("Jump")) {
-            JumpBuffer.Position = jumpInputBufferingTime;
+            JumpBuffer.Position = JumpInputBufferingTime;
             JumpHoldTimer.Position = MaxJumpDuration;
         }
 
@@ -224,28 +220,28 @@ public class MovementController2D : MonoBehaviour
 
         if (Input.GetButtonUp("Jump") || (Input.GetButton("Jump") && JumpHoldTimer.Ended)) {
             if (jumping) {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * jumpControlMultiplier);
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * JumpControlMultiplier);
                 jumping = false;
             }
         }
 
         bool currentlyGrounded = coll.Grounded;
         if (currentlyGrounded) {
-            CoyoteTime.Position = jumpGroundedLeniency;
+            CoyoteTime.Position = JumpGroundedLeniency;
             jumpsUsed = 0;
             velocityYTrack = rb.velocity.y; // should be 0
         }
 
-        if (!JumpBuffer.Ended && (GroundedCoyote || jumpsUsed < extraJumpAmount)) {
+        if (!JumpBuffer.Ended && (GroundedCoyote || jumpsUsed < ExtraJumpAmount)) {
             if (!Physics2D.Raycast(transform.position, Vector2.up, coll.CollisionSizeY, coll.GroundLayer)) {
                 Jump();
             }
         }
 
         // Play walk sfx
-        if (walkSfx != null && Moving && currentlyGrounded && walkSfxLastPlayed >= walkSfxDelay) {
+        if (WalkSfx != null && Moving && currentlyGrounded && walkSfxLastPlayed >= WalkSfxDelay) {
             walkSfxLastPlayed = 0f;
-            audioSource.PlayOneShot(walkSfx.Random(), walkSfxVolume);
+            Audio.PlayOneShot(WalkSfx.Random(), WalkSfxVolume);
         }
         
         if (CoyoteTime.Ended && wasGrounded) {
@@ -256,8 +252,8 @@ public class MovementController2D : MonoBehaviour
             // Player has hit the ground
             wasGrounded = true;
 
-            if (groundHitSfx != null) {
-                audioSource.PlayOneShot(groundHitSfx.Random(), groundHitSfxVolume);
+            if (GroundHitSfx != null) {
+                Audio.PlayOneShot(GroundHitSfx.Random(), GroundHitSfxVolume);
             }
 
             if (velocityYTrack < -10f) {
@@ -326,7 +322,7 @@ public class MovementController2D : MonoBehaviour
         float dir = Mathf.Sign(horz);
 
         if (lastHorizontalInput != 0f && horz == 0f) {
-            accelerationFrame = -decelerationSpeed;
+            accelerationFrame = -DecelerationSpeed;
         }
 
         float controlAmt = 1 - (Mathf.Min(VelocityCounteractStrength, Mathf.Abs(velocityX)) / VelocityCounteractStrength);
@@ -341,15 +337,15 @@ public class MovementController2D : MonoBehaviour
             }
 
             // Calculate the speed with the acceleration curve applied
-            float actualSpeed = speed * (
-                accelerationBase + (
-                    accelerationCurve.Evaluate(
-                        Mathf.Clamp01(accelerationFrame / accelerationSpeed)
+            float actualSpeed = Speed * (
+                AccelerationBase + (
+                    AccelerationCurve.Evaluate(
+                        Mathf.Clamp01(accelerationFrame / AccelerationSpeed)
                     )
-                ) * (1f - accelerationBase)
+                ) * (1f - AccelerationBase)
             );
             
-            var simulatedPosition = transform.position + new Vector3(horz * speed * controlAmt, 0);
+            var simulatedPosition = transform.position + new Vector3(horz * Speed * controlAmt, 0);
             var desiredPosition = transform.position + new Vector3(horz * actualSpeed * controlAmt, 0);
 
             if (coll.SimulateMovement(simulatedPosition)) {
@@ -363,8 +359,8 @@ public class MovementController2D : MonoBehaviour
 
             if (accelerationFrame < 0) {
                 // Debug.Log(decelerationTurn);
-                float deceleration = speed * decelerationCurve.Evaluate(Mathf.Clamp01(Mathf.Abs(accelerationFrame) / decelerationSpeed));
-                Vector3 simulatedPosition = transform.position + new Vector3(decelerationTurn * (speed + 0.05f), 0);
+                float deceleration = Speed * DecelerationCurve.Evaluate(Mathf.Clamp01(Mathf.Abs(accelerationFrame) / DecelerationSpeed));
+                Vector3 simulatedPosition = transform.position + new Vector3(decelerationTurn * (Speed + 0.05f), 0);
                 Vector3 desiredPosition = transform.position + new Vector3(decelerationTurn * deceleration, 0);
                 if (coll.SimulateMovement(simulatedPosition)) {
                     transform.position = desiredPosition;

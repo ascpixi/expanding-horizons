@@ -15172,16 +15172,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d21452e27614714d8e8b62c277b2082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.16
-  jumpHeight: 16
-  extraJumpAmount: 0
-  jumpControlMultiplier: 0.65
-  movingJumpMultiplier: 0.85
+  Speed: 0.16
+  JumpHeight: 16
+  ExtraJumpAmount: 0
+  JumpControlMultiplier: 0.65
+  MovingJumpMultiplier: 0.85
   MaxJumpDuration: 0.265
-  accelerationSpeed: 3
-  decelerationSpeed: 1
-  accelerationBase: 0.5
-  accelerationCurve:
+  AccelerationSpeed: 3
+  DecelerationSpeed: 1
+  AccelerationBase: 0.5
+  AccelerationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -15205,7 +15205,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decelerationCurve:
+  DecelerationCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -15229,27 +15229,27 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpInputBufferingTime: 0.15
-  jumpGroundedLeniency: 0.1
+  JumpInputBufferingTime: 0.15
+  JumpGroundedLeniency: 0.1
   VelocityCounteractStrength: 3
   Drag: 24
   WallJumpForce: {x: 9, y: 10}
   WallJumpLeniency: 0.2
   WallSlideMaximumVelocity: 2
   SameWallJumpCooldown: 0.2
-  audioSource: {fileID: 2832037644292650778}
-  groundHitSfx:
+  Audio: {fileID: 2832037644292650778}
+  GroundHitSfx:
   - {fileID: 8300000, guid: 45e0005d3ba640242ad57bd70134daca, type: 3}
   - {fileID: 8300000, guid: 27c4542e4c3f70e44af448940614cf83, type: 3}
   - {fileID: 8300000, guid: e2d22b8858274ac47adbf1ada9bd1f0b, type: 3}
   - {fileID: 8300000, guid: 20394fdf5a02a89439b3ea275bf6731d, type: 3}
-  groundHitSfxVolume: 0.6
-  jumpSfx: {fileID: 8300000, guid: c3eceb4814963e044b021f86f13b4125, type: 3}
-  walkSfx:
+  GroundHitSfxVolume: 0.6
+  JumpSfx: {fileID: 8300000, guid: c3eceb4814963e044b021f86f13b4125, type: 3}
+  WalkSfx:
   - {fileID: 8300000, guid: c3eceb4814963e044b021f86f13b4125, type: 3}
-  walkSfxDelay: 0.4
-  walkSfxVolume: 0.5
-  extraJumpSfx: {fileID: 8300000, guid: c3eceb4814963e044b021f86f13b4125, type: 3}
+  WalkSfxDelay: 0.4
+  WalkSfxVolume: 0.5
+  ExtraJumpSfx: {fileID: 8300000, guid: c3eceb4814963e044b021f86f13b4125, type: 3}
 --- !u!114 &7126438933173553647
 MonoBehaviour:
   m_ObjectHideFlags: 0
