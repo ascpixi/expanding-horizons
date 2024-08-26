@@ -25,7 +25,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Asset License (All Rights Reserved)
-All game assets, including but not limited to art, music, sound effects, characters, and any other creative content included in this repository, are not licensed under the MIT License. These assets are provided solely for use in conjunction with the Software, and all rights are reserved by [Your Name or Your Organization].
+All game assets, including but not limited to art, music, sound effects, characters, and any other creative content included in this repository, are not licensed under the MIT License. These assets are provided solely for use in conjunction with the Software, and all rights are reserved by ascpixi.
 
 ### Usage Restrictions
 - You **may not** use, copy, modify, merge, publish, distribute, sublicense, or sell copies of the game assets independently of the Software.
