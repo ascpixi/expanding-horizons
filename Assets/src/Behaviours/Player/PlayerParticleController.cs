@@ -43,7 +43,7 @@ public class PlayerParticleController : MonoBehaviour
         var emitter = ps.shape;
 
         if (hit) {
-            // first we need to obtain the scale and start of the tile
+            // first, we need to obtain the scale and start of the tile
             // because of how tilemap colliders work, we need to
             // work around them
             Vector3 topLeft, scale;
@@ -67,13 +67,13 @@ public class PlayerParticleController : MonoBehaviour
                 scale = hit.transform.localScale;
             }
 
-            // -1 if the tile is on our right and 1 if its on our left
+            // -1 if the tile is on our right and 1 if it's on our left
             float side = Mathf.Sign(transform.position.x - topLeft.x);
-
+            
             // check for a neightbouring object in the direction that we
             // would scale the particle system in - if we can detect one,
             // scaling should not be performed as the particle can simply
-            // reside on said neighbouring object
+            // reside on said neighboring object
             Vector3 neighbour;
 
             if (hit.collider is TilemapCollider2D) {
@@ -98,7 +98,7 @@ public class PlayerParticleController : MonoBehaviour
 
                 emitter.position = new Vector3(distanceToEdge / 2f, emitter.position.y);
             } else {
-                // neighbour detected - we can probably fit the whole particle,
+                // neighbor detected - we can probably fit the whole particle,
                 // so no need for scaling
                 emitter.scale = new Vector3(1f, 1f, 1f);
                 emitter.position = new Vector3(0f, emitter.position.y);
@@ -146,7 +146,6 @@ public class PlayerParticleController : MonoBehaviour
             transform.position,
             new Vector2(0.5f, transform.localScale.y),
             0f,
-            // TODO: This somehow works but realistically these vectors should be swapped
             mvmt.FacingLeft ? Vector2.left : Vector2.right,
             5f,
             mvmt.Collisions.GroundLayer
@@ -182,7 +181,7 @@ public class PlayerParticleController : MonoBehaviour
         float newX = Mathf.Abs(pTransform.localPosition.x) * sign;
 
         pTransform.localPosition = new Vector3(newX, pTransform.localPosition.y, pTransform.localPosition.z);
-        pTransform.localRotation = mvmt.FacingLeft ? Quaternion.identity : oneEightyDegrees;
+        pTransform.localRotation = mvmt.FacingLeft ? oneEightyDegrees : Quaternion.identity;
         
         MoveParticleSystemToWall(WallParticles);
         WallParticles.Play();
