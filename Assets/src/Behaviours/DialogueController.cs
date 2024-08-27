@@ -3,20 +3,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(RectTransform))]
 public class DialogueController : MonoBehaviour
 {
     public Image Background;
     public TextMeshProUGUI TextRenderer;
+    
     public Transform Speaker;
     public Vector2 SpeakerOffset;
     public Vector2 Padding;
     public AudioClip[] SpeakSfx;
     public AudioSource Audio;
     public float AudioVolume = 1;
+
+    RectTransform rectTransform;
     
-    
-    public void DisplayDialogue(DialogueData data)
-        => StartCoroutine(DialogueCoroutine(data));
+    public void DisplayDialogue(string[] lines)
+        => StartCoroutine(DialogueCoroutine(lines));
 
     void PlayTalkSfx()
     {
@@ -24,7 +27,7 @@ public class DialogueController : MonoBehaviour
         Audio.PlayOneShot(SpeakSfx.Random(), AudioVolume);
     }
     
-    public IEnumerator DialogueCoroutine(DialogueData data)
+    public IEnumerator DialogueCoroutine(string[] lines)
     {
         bool prevFrozen = GlobalGameBehaviour.Frozen;
         GlobalGameBehaviour.Frozen = true;
@@ -32,19 +35,20 @@ public class DialogueController : MonoBehaviour
         TextRenderer.gameObject.SetActive(true);
         Background.gameObject.SetActive(true);
         
-        for (var i = 0; i < data.Lines.Length; i++) {
+        foreach (string line in lines) {
             PlayTalkSfx();
             
-            string line = data.Lines[i];
-            var bgOffset = data.BackgroundOffset[i];
-
+            var textSize = TextRenderer.GetPreferredValues(line);
+            
             TextRenderer.text = line;
 
+            rectTransform.sizeDelta = Background.rectTransform.sizeDelta = textSize.WithZ(1) + Padding.WithZ(0);
+            Background.rectTransform.localPosition = new(0, 0);
+
+            TextRenderer.rectTransform.sizeDelta = textSize;
+            
             yield return null;
             
-            Background.rectTransform.sizeDelta = TextRenderer.textBounds.size + Padding.WithZ(0);
-            Background.rectTransform.localPosition = bgOffset;
-
             while (!Input.GetButtonDown("Primary")) {
                 yield return null;
             }
@@ -54,6 +58,11 @@ public class DialogueController : MonoBehaviour
         Background.gameObject.SetActive(false);
 
         GlobalGameBehaviour.Frozen = prevFrozen;
+    }
+
+    void Start()
+    {
+        rectTransform = GetComponent<RectTransform>();
     }
 
     void Update()

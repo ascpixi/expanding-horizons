@@ -16,11 +16,11 @@ public class TutorialSequence : MonoBehaviour
     public float WispFadeDuration;
     public float WispDisappearDuration = 2;
     
-    public DialogueData IntroductionData;
-    public DialogueData FirstData;
-    public DialogueData SecondData;
-    public DialogueData ThirdData;
-    public DialogueData FinalData;
+    public string[] IntroductionDialogue;
+    public string[] FirstDialogue;
+    public string[] SecondDialogue;
+    public string[] ThirdDialogue;
+    public string[] FinalDialogue;
     
     public Vector2 FirstPosition;
     public Vector2 FirstTriggerSize;
@@ -85,7 +85,7 @@ public class TutorialSequence : MonoBehaviour
 
         yield return new WaitForSeconds(WispFadeDuration);
         
-        yield return Dialogues.DialogueCoroutine(IntroductionData);
+        yield return Dialogues.DialogueCoroutine(IntroductionDialogue);
 
         GlobalGameBehaviour.Frozen = false;
         
@@ -99,7 +99,7 @@ public class TutorialSequence : MonoBehaviour
             yield return null;
         }
         
-        yield return Dialogues.DialogueCoroutine(FirstData);
+        yield return Dialogues.DialogueCoroutine(FirstDialogue);
 
         // wait until the player shoots the left side
         while (viewport.CurrentSide != ViewportSide.Left) {
@@ -109,7 +109,7 @@ public class TutorialSequence : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         // now we need the player to recall
-        yield return Dialogues.DialogueCoroutine(SecondData);
+        yield return Dialogues.DialogueCoroutine(SecondDialogue);
 
         while (player.BeamsLeft != 2) {
             yield return null;
@@ -119,7 +119,7 @@ public class TutorialSequence : MonoBehaviour
         
         // great, player now knows how to recall :)
         // now teach em how to shrink
-        yield return Dialogues.DialogueCoroutine(ThirdData);
+        yield return Dialogues.DialogueCoroutine(ThirdDialogue);
 
         while (player.BeamsLeft != 0) {
             yield return null;
@@ -128,7 +128,7 @@ public class TutorialSequence : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         // aight we're done at this point
-        yield return Dialogues.DialogueCoroutine(FinalData);
+        yield return Dialogues.DialogueCoroutine(FinalDialogue);
         
         // the player can figure what to do
         WispRenderer.DOFade(0, WispDisappearDuration);

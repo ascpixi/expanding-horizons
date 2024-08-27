@@ -1520,11 +1520,6 @@ GameObject:
   m_Component:
   - component: {fileID: 150684791}
   - component: {fileID: 150684790}
-  - component: {fileID: 150684792}
-  - component: {fileID: 150684793}
-  - component: {fileID: 150684794}
-  - component: {fileID: 150684796}
-  - component: {fileID: 150684795}
   - component: {fileID: 150684797}
   m_Layer: 0
   m_Name: Tutorial Controller
@@ -1554,11 +1549,29 @@ MonoBehaviour:
   ViewportExpandDuration: 2
   WispFadeDuration: 0.5
   WispDisappearDuration: 1
-  IntroductionData: {fileID: 150684792}
-  FirstData: {fileID: 150684793}
-  SecondData: {fileID: 150684794}
-  ThirdData: {fileID: 150684796}
-  FinalData: {fileID: 150684795}
+  IntroductionDialogue:
+  - WELCOME, MORTAL.
+  - I AM THE GUARDIAN.
+  - YOU HAVE BEEN DEEMED WORTHY OF THE ARTIFACT.
+  - ALLOW ME TO TEACH YOU.
+  - 'CONTINUE FORWARD. '
+  FirstDialogue:
+  - FACE THE LEFT SIDE, AND USE THE [Z] KEY TO USE THE ARTIFACT.
+  SecondDialogue:
+  - THE LEFT CONFINE HAS BEEN ANCHORED.
+  - THE ARTIFACT HAS LIMITED CHARGES.
+  - TO RESTORE THEM, YOU WILL NEED TO RECALL.
+  - ALL CONFINES WILL ALSO BE RESET.
+  - HOLD [R] TO DO SO.
+  ThirdDialogue:
+  - CASTING AN ANCHORED CONFINE WILL SHRINK IT.
+  - USE THE ARTIFACT [Z] TWICE ON THE SAME BORDER.
+  FinalDialogue:
+  - WELL DONE.
+  - YOU ARE READY FOR THE TEST.
+  - USE THE ANCHORED SIDE TO WALL JUMP.
+  - YOU MAY ALSO USE [UP]/[DOWN] TO CAST VERTICALLY.
+  - GOOD LUCK.
   FirstPosition: {x: -2.29, y: -2.99}
   FirstTriggerSize: {x: 1.46, y: 1.89}
   FirstTiming: 2
@@ -1577,112 +1590,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &150684792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150684789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bfcf7028c55504a8640bcc8a8d2cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lines:
-  - WELCOME, MORTAL.
-  - I AM THE GUARDIAN.
-  - YOU HAVE BEEN DEEMED WORTHY OF THE ARTIFACT.
-  - ALLOW ME TO TEACH YOU.
-  - 'CONTINUE FORWARD. '
-  BackgroundOffset:
-  - {x: -15.7, y: 13.2}
-  - {x: -3.1, y: 13.2}
-  - {x: 145, y: 13.2}
-  - {x: 17.8, y: 13.2}
-  - {x: -5.1, y: 13.2}
---- !u!114 &150684793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150684789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bfcf7028c55504a8640bcc8a8d2cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lines:
-  - FACE THE LEFT SIDE, AND USE THE [Z] KEY TO USE THE ARTIFACT.
-  BackgroundOffset:
-  - {x: 230, y: 13.2}
---- !u!114 &150684794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150684789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bfcf7028c55504a8640bcc8a8d2cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lines:
-  - THE LEFT CONFINE HAS BEEN ANCHORED.
-  - THE ARTIFACT HAS LIMITED CHARGES.
-  - TO RESTORE THEM, YOU WILL NEED TO RECALL.
-  - ALL CONFINES WILL BE RESET.
-  - HOLD [R] TO DO SO.
-  BackgroundOffset:
-  - {x: 101.5, y: 13}
-  - {x: 82.75, y: 13}
-  - {x: 123, y: 13}
-  - {x: 88, y: 13}
-  - {x: -8.5, y: 13}
---- !u!114 &150684795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150684789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bfcf7028c55504a8640bcc8a8d2cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lines:
-  - WELL DONE.
-  - YOU ARE READY FOR THE TEST.
-  - USE THE ANCHORED SIDE TO WALL JUMP.
-  - YOU MAY ALSO USE [UP]/[DOWN] TO CAST VERTICALLY.
-  - GOOD LUCK.
-  BackgroundOffset:
-  - {x: -46.25, y: 13}
-  - {x: 46.25, y: 13}
-  - {x: 95.25, y: 13}
-  - {x: 161, y: 13}
-  - {x: -46.25, y: 13}
---- !u!114 &150684796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150684789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bfcf7028c55504a8640bcc8a8d2cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lines:
-  - CASTING AN ANCHORED CONFINE WILL SHRINK IT.
-  - USE THE ARTIFACT [Z] TWICE ON THE SAME BORDER.
-  BackgroundOffset:
-  - {x: 140.75, y: 13}
-  - {x: 152.25, y: 13}
 --- !u!82 &150684797
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4534,6 +4441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Background: {fileID: 1440505917}
   TextRenderer: {fileID: 184526433}
+  Box: {fileID: 756203817}
   Speaker: {fileID: 1123141975}
   SpeakerOffset: {x: 0, y: 32}
   Padding: {x: 8, y: 8}
@@ -4543,6 +4451,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 12a8bd0a3d8cb854e98a99f63db77e97, type: 3}
   Audio: {fileID: 756203819}
   AudioVolume: 1
+  OffsetY: 13.2
 --- !u!82 &756203819
 AudioSource:
   m_ObjectHideFlags: 0

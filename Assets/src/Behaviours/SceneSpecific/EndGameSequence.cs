@@ -6,7 +6,7 @@ public class EndGameSequence : MonoBehaviour
 {
     public Transform WispTransform;
     public DialogueController Dialogues;
-    public DialogueData Text;
+    public string[] Text;
     public Vector2 TriggerRadius;
     public float EndAnimationDuration;
     public AudioSource Audio;
