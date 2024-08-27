@@ -64,10 +64,8 @@ public class AnimationController : MonoBehaviour
         Animator.SetBool(GroundedParamName, mvmt.Collisions.Grounded);
 
         if (mvmt.WallSliding) {
-            if (mvmt.Collisions.TouchingRightWall) {
-                Renderer.flipX = false;
-            } else if (mvmt.Collisions.TouchingLeftWall) {
-                Renderer.flipX = true;
+            if (mvmt.Collisions.TouchingRightWall ||  mvmt.Collisions.TouchingLeftWall) {
+                Renderer.flipX = Input.GetAxis("Horizontal") > 0f;
             }
         }
         else {
