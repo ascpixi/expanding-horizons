@@ -285,16 +285,16 @@ public class ViewportBehaviour : MonoBehaviour
     /// </summary>
     public ViewportSide GetSideByPoint(Vector2 point)
     {
-        if (new Bounds(sides[RightIndex], new Vector3(0.25f, 1000f)).Contains(point))
+        if (new Bounds(sides[RightIndex], new Vector3(1f, 1000f)).Contains(point))
             return ViewportSide.Right;
         
-        if (new Bounds(sides[LeftIndex], new Vector3(0.25f, 1000f)).Contains(point))
+        if (new Bounds(sides[LeftIndex], new Vector3(1f, 1000f)).Contains(point))
             return ViewportSide.Left;
         
-        if (new Bounds(sides[TopIndex], new Vector3(1000f, 0.5f)).Contains(point))
+        if (new Bounds(sides[TopIndex], new Vector3(1000f, 1f)).Contains(point))
             return ViewportSide.Top;
         
-        if (new Bounds(sides[BottomIndex], new Vector3(1000f, 0.5f)).Contains(point))
+        if (new Bounds(sides[BottomIndex], new Vector3(1000f, 1f)).Contains(point))
             return ViewportSide.Bottom;
 
         return ViewportSide.None;
