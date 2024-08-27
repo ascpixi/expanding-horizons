@@ -15233,8 +15233,8 @@ MonoBehaviour:
   JumpGroundedLeniency: 0.1
   VelocityCounteractStrength: 3
   Drag: 24
-  WallJumpForce: {x: 9, y: 10}
-  WallJumpLeniency: 0.2
+  WallJumpForce: {x: 9.5, y: 10}
+  WallJumpLeniency: 0.3
   WallSlideMaximumVelocity: 2
   SameWallJumpCooldown: 0.2
   Audio: {fileID: 2832037644292650778}
