@@ -1520,7 +1520,6 @@ GameObject:
   m_Component:
   - component: {fileID: 150684791}
   - component: {fileID: 150684799}
-  - component: {fileID: 150684798}
   - component: {fileID: 150684797}
   m_Layer: 0
   m_Name: End Controller
@@ -1640,26 +1639,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &150684798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150684789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38bfcf7028c55504a8640bcc8a8d2cb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Lines:
-  - WELCOME BACK.
-  - YOU HAVE SERVED YOUR PURPOSE.
-  - YOU MAY NOW RETURN.
-  BackgroundOffset:
-  - {x: -27.5, y: 13}
-  - {x: 61.25, y: 13}
-  - {x: 3.75, y: 13}
 --- !u!114 &150684799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1674,7 +1653,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WispTransform: {fileID: 1123141975}
   Dialogues: {fileID: 756203818}
-  Text: {fileID: 150684798}
+  Text:
+  - 'WELCOME BACK. '
+  - YOU HAVE SERVED YOUR PURPOSE.
+  - YOU MAY NOW RETURN.
   TriggerRadius: {x: 6.64, y: 4.53}
   EndAnimationDuration: 6.85
   Audio: {fileID: 150684797}
