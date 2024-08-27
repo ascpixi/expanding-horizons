@@ -214,7 +214,7 @@ public class MovementController2D : MonoBehaviour
             JumpHoldTimer.Position = MaxJumpDuration;
         }
 
-        if (!Controllable) {
+        if (!Controllable || GlobalGameBehaviour.Frozen) {
             return;
         }
 
