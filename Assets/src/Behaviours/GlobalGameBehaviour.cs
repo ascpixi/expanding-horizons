@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class GlobalGameBehaviour : MonoBehaviour
 {
     static GlobalGameBehaviour self;
-    static bool frozen;
 
     void Awake()
     {
@@ -37,19 +36,7 @@ public class GlobalGameBehaviour : MonoBehaviour
     
     void OnApplicationQuit() => DOTween.KillAll();
     
-    public static bool Frozen {
-        get => frozen;
-        set {
-            if (value && !frozen) {
-                DOTween.PauseAll();
-            }
-            else if(!value && frozen) {
-                DOTween.PlayAll();
-            }
-
-            frozen = value;
-        }
-    }
+    public static bool Frozen { get; set; }
     
     /// <summary>
     /// Loads the specified scene by its build index.
