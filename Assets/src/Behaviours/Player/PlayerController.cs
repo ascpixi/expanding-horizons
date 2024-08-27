@@ -21,14 +21,6 @@ public class PlayerController : MonoBehaviour
     public GameObject PrimaryBeamPrefab;
     public GameObject SecondaryBeamPrefab;
     
-    [Header("Animation")]
-    public string HurtParamName = "Hurt";
-
-    public string AimUpParamName = "AimingUp";
-    public string AimDownParamName = "AimingDown";
-    public string NoEquipParamName = "NoEquip";
-    public float HurtAnimDuration = .7f;
-    public float WinAnimDuration = 1f;
     public float TeleportDuration = 0.25f;
     
     [Header("Audio")]
@@ -44,6 +36,10 @@ public class PlayerController : MonoBehaviour
     
     public int BeamsLeft { get; set; }
 
+    public bool IsAimingUp { get; private set; } 
+    public bool IsAimingDown { get; private set; } 
+    public bool NoEquipment { get; private set; }
+    
     public float RecallProgress => recallHoldTime / RecallDuration;
     
     float recallHoldTime;
@@ -95,60 +91,60 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!GlobalGameBehaviour.Frozen) {
-            bool aimingDown = false, aimingUp = false;
+        if (GlobalGameBehaviour.Frozen) {
+            NoEquipment = LevelData.Current.AllowBeam;
+            return;
+        }
         
-            if (Input.GetButton("Aim Up")) {
-                aimingUp = true;
-            }
-            else if (Input.GetButton("Aim Down") && !Movement.GroundedCoyote) {
-                aimingDown = true;
-            }
+        bool aimingDown = false, aimingUp = false;
+    
+        if (Input.GetButton("Aim Up")) {
+            aimingUp = true;
+        }
+        else if (Input.GetButton("Aim Down") && !Movement.GroundedCoyote) {
+            aimingDown = true;
+        }
 
-            if (
-                Input.GetButton("Recall") &&
-                BeamsLeft != LevelData.Current.BeamCount &&
-                !Movement.Moving &&
-                !Movement.Airborne &&
-                Movement.Collisions.Grounded
-            ) {
-                IsRecalling = true;
-                recallHoldTime += Time.deltaTime;
-            }
-            else {
-                IsRecalling = false;
-                recallHoldTime = 0;
-            }
+        if (
+            Input.GetButton("Recall") &&
+            BeamsLeft != LevelData.Current.BeamCount &&
+            !Movement.Moving &&
+            !Movement.Airborne &&
+            Movement.Collisions.Grounded
+        ) {
+            IsRecalling = true;
+            recallHoldTime += Time.deltaTime;
+        }
+        else {
+            IsRecalling = false;
+            recallHoldTime = 0;
+        }
 
-            if (recallHoldTime >= RecallDuration) {
-                Recall(true);
-            }
+        if (recallHoldTime >= RecallDuration) {
+            Recall(true);
+        }
 
-            ProjectileOriginParent.localScale = new Vector3(Movement.FacingLeft ? -1 : 1, 1, 1);
+        ProjectileOriginParent.localScale = new Vector3(Movement.FacingLeft ? -1 : 1, 1, 1);
 
-            if (LevelData.Current.AllowBeam) {
-                Animator.SetBool(AimUpParamName, aimingUp);
-                Animator.SetBool(AimDownParamName, aimingDown);
-                Animator.SetBool(NoEquipParamName, false);
+        if (LevelData.Current.AllowBeam) {
+            IsAimingDown = aimingDown;
+            IsAimingUp = aimingUp;
+            NoEquipment = false;
 
-                if (BeamsLeft > 0) {
-                    bool primary = Input.GetButtonDown("Primary Beam");
-                    bool secondary = Input.GetButtonDown("Secondary Beam");
+            if (BeamsLeft > 0) {
+                bool primary = Input.GetButtonDown("Primary Beam");
+                bool secondary = Input.GetButtonDown("Secondary Beam");
 
-                    bool castingAny = primary || (secondary && LevelData.Current.AllowSecondary);
-                    
-                    if (castingAny && !Interactable.AnyInRange) {
-                        FireBeam(primary, aimingUp, aimingDown);
-                        BeamsLeft--;
-                    }
+                bool castingAny = primary || (secondary && LevelData.Current.AllowSecondary);
+                
+                if (castingAny && !Interactable.AnyInRange) {
+                    FireBeam(primary, aimingUp, aimingDown);
+                    BeamsLeft--;
                 }
-            }
-            else {
-                Animator.SetBool(NoEquipParamName, true);
             }
         }
         else {
-            Animator.SetBool(NoEquipParamName, LevelData.Current.AllowBeam);
+            NoEquipment = true;
         }
     }
 
@@ -249,24 +245,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy")) {
             Damage();
-        }
-        
-        if (other.gameObject.CompareTag("WinCheckpoint")) {
-            Movement.Freeze();
-            GlobalGameBehaviour.Frozen = true;
-
-            PersistentData.Global.CurrentLevel = LevelData.Current.LevelIndex + 1;
-            PersistentData.Global.Save();
-
-            AudioSource.PlayOneShot(LevelPassSfx);
-
-            float actualDuration = WinAnimDuration * 1.25f;
-
-            transform.DOMove(other.transform.position, actualDuration);
-            transform.DORotate(new Vector3(0f, 0f, 115f), actualDuration);
-            transform.DOScale(.25f, actualDuration * 1.5f);
-
-            this.RunAfter(WinAnimDuration * 1.5f, GlobalGameBehaviour.LoadNextScene);
         }
     }
 }

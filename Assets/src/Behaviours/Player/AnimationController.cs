@@ -14,6 +14,7 @@ public enum PlayerAnimationType
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(MovementController2D))]
+[RequireComponent(typeof(PlayerController))]
 public class AnimationController : MonoBehaviour
 {
     [Header("Components")]
@@ -34,8 +35,12 @@ public class AnimationController : MonoBehaviour
     public string GroundedParamName = "Grounded";
     public string JumpingParamName = "Jumping";
     public string WallSlidingParamName = "WallSliding";
+    public string AimUpParamName = "AimingUp";
+    public string AimDownParamName = "AimingDown";
+    public string NoEquipParamName = "NoEquip";
     
     MovementController2D mvmt;
+    PlayerController player;
     [CanBeNull] Tweener visualTransformTween = null;
     
     /// <summary>
@@ -46,16 +51,26 @@ public class AnimationController : MonoBehaviour
     void Start()
     {
         mvmt = GetComponent<MovementController2D>();
+        player = GetComponent<PlayerController>();
     }
 
     void Update()
     {
+        Animator.SetBool(NoEquipParamName, player.NoEquipment);
+        
         if (Frozen || GlobalGameBehaviour.Frozen) {
+            // I'd introduce a method like SetBools if Unity didn't use an ancient
+            // version of C# that requires an array allocation for vararg-like methods :(
             Animator.SetBool(GroundedParamName, true);
             Animator.SetBool(MovingParamName, false);
             Animator.SetBool(JumpingParamName, false);
+            Animator.SetBool(AimUpParamName, false);
+            Animator.SetBool(AimDownParamName, false);
             return;
         }
+        
+        Animator.SetBool(AimUpParamName, player.IsAimingUp);
+        Animator.SetBool(AimDownParamName, player.IsAimingDown);
         
         Animator.SetBool(MovingParamName, mvmt.Moving);
         Animator.SetBool(JumpingParamName, mvmt.Jumping);
@@ -80,7 +95,7 @@ public class AnimationController : MonoBehaviour
         // (because the object has been destroyed) and throw an exception
         visualTransformTween?.Kill();
     }
-
+    
     /// <summary>
     /// Plays a "squish" animation.
     /// </summary>
