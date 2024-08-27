@@ -1572,8 +1572,8 @@ MonoBehaviour:
   - USE THE ANCHORED SIDE TO WALL JUMP.
   - YOU MAY ALSO USE [UP]/[DOWN] TO CAST VERTICALLY.
   - GOOD LUCK.
-  FirstPosition: {x: -2.29, y: -2.99}
-  FirstTriggerSize: {x: 1.46, y: 1.89}
+  FirstPosition: {x: -1.85, y: -2.99}
+  FirstTriggerSize: {x: 2.39, y: 1.89}
   FirstTiming: 2
 --- !u!4 &150684791
 Transform:
@@ -4441,7 +4441,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Background: {fileID: 1440505917}
   TextRenderer: {fileID: 184526433}
-  Box: {fileID: 756203817}
   Speaker: {fileID: 1123141975}
   SpeakerOffset: {x: 0, y: 32}
   Padding: {x: 8, y: 8}
@@ -4451,7 +4450,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 12a8bd0a3d8cb854e98a99f63db77e97, type: 3}
   Audio: {fileID: 756203819}
   AudioVolume: 1
-  OffsetY: 13.2
 --- !u!82 &756203819
 AudioSource:
   m_ObjectHideFlags: 0
