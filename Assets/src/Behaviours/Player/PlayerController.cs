@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
     public bool IsAimingDown { get; private set; } 
     public bool NoEquipment { get; private set; }
     
+    public bool WandDisabled { get; set; }
+    
     public float RecallProgress => recallHoldTime / RecallDuration;
     
     float recallHoldTime;
@@ -110,7 +112,8 @@ public class PlayerController : MonoBehaviour
             BeamsLeft != LevelData.Current.BeamCount &&
             !Movement.Moving &&
             !Movement.Airborne &&
-            Movement.Collisions.Grounded
+            Movement.Collisions.Grounded &&
+            !WandDisabled
         ) {
             IsRecalling = true;
             recallHoldTime += Time.deltaTime;
@@ -131,7 +134,7 @@ public class PlayerController : MonoBehaviour
             IsAimingUp = aimingUp;
             NoEquipment = false;
 
-            if (BeamsLeft > 0) {
+            if (BeamsLeft > 0 && !WandDisabled) {
                 bool primary = Input.GetButtonDown("Primary Beam");
                 bool secondary = Input.GetButtonDown("Secondary Beam");
 

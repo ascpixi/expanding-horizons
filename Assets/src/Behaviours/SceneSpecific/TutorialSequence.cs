@@ -25,17 +25,12 @@ public class TutorialSequence : MonoBehaviour
     public Vector2 FirstPosition;
     public Vector2 FirstTriggerSize;
     public float FirstTiming;
-    // public Vector2 SecondPosition;
-    // public Vector2 SecondTriggerSize;
-    // public float SecondTiming;
-    
     
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireCube(FirstPosition, FirstTriggerSize);
-        // Gizmos.DrawWireCube(SecondPosition, SecondTriggerSize);
     }
 #endif
     
@@ -46,6 +41,9 @@ public class TutorialSequence : MonoBehaviour
         LevelData.Current.AllowBeam = true;
         LevelData.Current.BeamCount = 2;
         PlayerController.Main.BeamsLeft = 2;
+        
+        // make sure the player doesn't do anything silly before being told the mechanics
+        PlayerController.Main.WandDisabled = true; 
 
         var viewport = ViewportBehaviour.Main;
         
@@ -78,7 +76,6 @@ public class TutorialSequence : MonoBehaviour
             yield return new WaitForSeconds(ViewportExpandDuration / div);
             viewport.LowerSideBorder.sprite = viewport.HorzSideSprite;
         }
-
         
         // The player has picked up the wand! Fade in the wisp...
         WispRenderer.DOFade(1, WispFadeDuration);
@@ -98,6 +95,8 @@ public class TutorialSequence : MonoBehaviour
         while (!firstRegion.Contains(player.Position.WithZ(0))) {
             yield return null;
         }
+
+        PlayerController.Main.WandDisabled = false;
         
         yield return Dialogues.DialogueCoroutine(FirstDialogue);
 
