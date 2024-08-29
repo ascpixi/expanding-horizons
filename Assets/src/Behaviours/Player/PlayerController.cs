@@ -9,10 +9,8 @@ using DG.Tweening;
 public class PlayerController : MonoBehaviour
 {
     [Header("Components")]
-    public SpriteRenderer SpriteRenderer;
-    public AudioSource AudioSource;
-    public Animator Animator;
-
+    public AudioSource Audio;
+    
     [Header("Objects")]
     public Transform ProjectileOrigin;
     public Transform ProjectileOriginParent;
@@ -22,11 +20,17 @@ public class PlayerController : MonoBehaviour
     public GameObject SecondaryBeamPrefab;
     
     public float TeleportDuration = 0.25f;
-    
-    [Header("Audio")]
-    public AudioClip HurtSfx;
-    public AudioClip LevelPassSfx;
 
+    [Header("Audio")]
+    public AudioClip[] HitSfx;
+    [Range(0, 1)] public float HitSfxVolume = 0.5f;
+    public AudioClip[] RecallSfx;
+    [Range(0, 1)] public float RecallSfxVolume = 0.5f;
+    public AudioClip[] MissSfx;
+    [Range(0, 1)] public float MissSfxVolume = 0.4f;
+    public AudioClip[] RespawnSfx;
+    [Range(0, 1)] public float RespawnSfxVolume = 0.5f;
+    
     [Header("Misc.")]
     public bool MainPlayer = true;
     public float RecallDuration = 0.5f; // the amount of time the player has to hold the recall button
@@ -124,6 +128,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if (recallHoldTime >= RecallDuration) {
+            Audio.PlayOneShot(RecallSfx.Random(), RecallSfxVolume);
             Recall(true);
         }
 
@@ -183,6 +188,7 @@ public class PlayerController : MonoBehaviour
         );
         
         var beam = obj.GetComponent<BeamBehaviour>();
+        beam.Source = this;
         beam.Velocity =
             aimingUp ? new Vector2(0, 1)
             : aimingDown ? new Vector2(0, -1)
@@ -202,20 +208,6 @@ public class PlayerController : MonoBehaviour
     
     public void Damage()
     {
-        // if (IsDead) return;
-        //
-        // Animator.SetBool(Movement.groundedParameterName, true);
-        // Animator.SetBool(Movement.jumpingParameterName, false);
-        // Animator.SetTrigger(HurtParamName);
-        // AudioSource.Stop();
-        // Movement.Freeze();
-        // IsDead = true;
-        //
-        // GlobalGameBehaviour.Frozen = true;
-        //
-        // AudioSource.PlayOneShot(HurtSfx);
-        // this.RunAfter(HurtAnimDuration, GlobalGameBehaviour.RestartCurrentScene);
-
         if (IsRespawning)
             return;
         
@@ -226,21 +218,13 @@ public class PlayerController : MonoBehaviour
     {
         IsRespawning = true;
         
-        // GlobalGameBehaviour.Frozen = true;
+        Audio.PlayOneShot(RespawnSfx.Random(), RespawnSfxVolume);
         
-        // TransitionManager.FadeOut();
-        // yield return TransitionManager.WaitForCompletion();
-
-        // CheckpointBehaviour.ResetCheckpoints();
-
         Recall(true);
         yield return new WaitForSeconds(TeleportDuration);
         
-        // // transform.position = respawnPoint;
-        // GlobalGameBehaviour.Frozen = false;
         IsRespawning = false;
-
-        // TransitionManager.FadeIn();
+        
         yield return null;
     }
 

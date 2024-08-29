@@ -15141,16 +15141,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2999f9c0aabab6b4eb750f3ae0eda390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 9033176801553826842}
-  AudioSource: {fileID: 2832037644292650778}
-  Animator: {fileID: 6472120104427736212}
+  Audio: {fileID: 2832037644292650778}
   ProjectileOrigin: {fileID: 467439337948178567}
   ProjectileOriginParent: {fileID: 5863313019583609459}
   PrimaryBeamPrefab: {fileID: 8633167636210022828, guid: e3cc24b043bf9084896ef2824111252f, type: 3}
   SecondaryBeamPrefab: {fileID: 8633167636210022828, guid: bb1ddd9a184750144b1d81b74bea6f54, type: 3}
   TeleportDuration: 0.25
-  HurtSfx: {fileID: 0}
-  LevelPassSfx: {fileID: 0}
+  HitSfx:
+  - {fileID: 8300000, guid: de22e144609c69444b94ed126bc95229, type: 3}
+  HitSfxVolume: 0.5
+  RecallSfx:
+  - {fileID: 8300000, guid: 947e1b7c2cdd4114c958082e0e092b0c, type: 3}
+  RecallSfxVolume: 0.5
+  MissSfx:
+  - {fileID: 8300000, guid: bc9aa21319409004b9691fa563db5c9d, type: 3}
+  MissSfxVolume: 0.4
+  RespawnSfx:
+  - {fileID: 8300000, guid: 41e3b6ad42b7769479cf196dd338c881, type: 3}
+  RespawnSfxVolume: 0.5
   MainPlayer: 1
   RecallDuration: 0.5
   DeathFallYCutoff: -9.5

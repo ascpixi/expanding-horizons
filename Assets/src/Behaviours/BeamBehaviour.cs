@@ -12,6 +12,8 @@ public class BeamBehaviour : MonoBehaviour
     public string ViewportSideTag;
     public float InitialCheckSize;
     
+    public PlayerController Source { get; set; }
+    
     public Vector2 Velocity { get; set; }
     
 #if UNITY_EDITOR
@@ -83,6 +85,8 @@ public class BeamBehaviour : MonoBehaviour
                 return;
             }
             
+            Source.Audio.PlayOneShot(Source.HitSfx.Random(), Source.HitSfxVolume);
+            
             if (hitSide != viewport.CurrentSide) {
                 viewport.ChangeCurrentSide(hitSide);
             }
@@ -96,6 +100,7 @@ public class BeamBehaviour : MonoBehaviour
         }
         else {
             PlayerController.Main.BeamsLeft++;
+            Source.Audio.PlayOneShot(Source.MissSfx.Random(), Source.MissSfxVolume);
         }
         
         HitDestroy();
