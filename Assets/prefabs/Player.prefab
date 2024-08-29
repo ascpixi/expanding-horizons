@@ -15148,12 +15148,6 @@ MonoBehaviour:
   ProjectileOriginParent: {fileID: 5863313019583609459}
   PrimaryBeamPrefab: {fileID: 8633167636210022828, guid: e3cc24b043bf9084896ef2824111252f, type: 3}
   SecondaryBeamPrefab: {fileID: 8633167636210022828, guid: bb1ddd9a184750144b1d81b74bea6f54, type: 3}
-  HurtParamName: Hurt
-  AimUpParamName: AimingUp
-  AimDownParamName: AimingDown
-  NoEquipParamName: NoEquip
-  HurtAnimDuration: 0.6
-  WinAnimDuration: 0.5
   TeleportDuration: 0.25
   HurtSfx: {fileID: 0}
   LevelPassSfx: {fileID: 0}
@@ -15239,14 +15233,21 @@ MonoBehaviour:
   SameWallJumpCooldown: 0.2
   Audio: {fileID: 2832037644292650778}
   GroundHitSfx:
-  - {fileID: 8300000, guid: 45e0005d3ba640242ad57bd70134daca, type: 3}
-  - {fileID: 8300000, guid: 27c4542e4c3f70e44af448940614cf83, type: 3}
-  - {fileID: 8300000, guid: e2d22b8858274ac47adbf1ada9bd1f0b, type: 3}
-  - {fileID: 8300000, guid: 20394fdf5a02a89439b3ea275bf6731d, type: 3}
+  - {fileID: 8300000, guid: 2f102422005a1c64fab76de0a33bb840, type: 3}
+  - {fileID: 8300000, guid: d7024d55482b1a9409c659b9bc4539ef, type: 3}
+  - {fileID: 8300000, guid: 710d948561cac4b4c8e817d2e6112342, type: 3}
+  - {fileID: 8300000, guid: 156da6027ff2d53479bd029c8c0b1fe0, type: 3}
   GroundHitSfxVolume: 0.6
-  JumpSfx: {fileID: 8300000, guid: c3eceb4814963e044b021f86f13b4125, type: 3}
+  JumpSfx:
+  - {fileID: 8300000, guid: dd301caacff4ced40b9b22a79be8ae12, type: 3}
+  - {fileID: 8300000, guid: 3194480f6158d0f499bb9fed15d74251, type: 3}
+  - {fileID: 8300000, guid: ac8cef6690cff514d9293df8b69671e7, type: 3}
+  JumpSfxVolume: 0.2
   WalkSfx:
-  - {fileID: 8300000, guid: c3eceb4814963e044b021f86f13b4125, type: 3}
+  - {fileID: 8300000, guid: 802b311f39a3e494bba597db8ce0b411, type: 3}
+  - {fileID: 8300000, guid: feaede3f2dfbd76408d0a50b2b0667a2, type: 3}
+  - {fileID: 8300000, guid: 224ee8bd6b3989f4aad62e5d22deef64, type: 3}
+  - {fileID: 8300000, guid: 8786a96a60e50ba46a5ebbda23546333, type: 3}
   WalkSfxDelay: 0.4
   WalkSfxVolume: 0.5
   ExtraJumpSfx: {fileID: 8300000, guid: c3eceb4814963e044b021f86f13b4125, type: 3}
@@ -15297,6 +15298,9 @@ MonoBehaviour:
   GroundedParamName: Grounded
   JumpingParamName: Jumping
   WallSlidingParamName: WallSliding
+  AimUpParamName: AimingUp
+  AimDownParamName: AimingDown
+  NoEquipParamName: NoEquip
 --- !u!114 &1376030449399651418
 MonoBehaviour:
   m_ObjectHideFlags: 0

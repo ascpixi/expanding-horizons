@@ -37,7 +37,8 @@ public class MovementController2D : MonoBehaviour
     public AudioSource Audio;
     public AudioClip[] GroundHitSfx;
     [Range(0, 1)] public float GroundHitSfxVolume = 0.6f;
-    public AudioClip JumpSfx;
+    public AudioClip[] JumpSfx;
+    [Range(0, 1)] public float JumpSfxVolume = 0.5f;
     public AudioClip[] WalkSfx;
     public float WalkSfxDelay = 0.4f;
     [Range(0, 1)] public float WalkSfxVolume = 0.5f;
@@ -154,8 +155,8 @@ public class MovementController2D : MonoBehaviour
             anim.PlayAnimation(PlayerAnimationType.Jump);
             particles.SpawnJumpParticles();
             
-            if (JumpSfx != null) {
-                Audio.PlayOneShot(JumpSfx);
+            if (JumpSfx.Length != 0) {
+                Audio.PlayOneShot(JumpSfx.Random(), JumpSfxVolume);
             }
         }
 
