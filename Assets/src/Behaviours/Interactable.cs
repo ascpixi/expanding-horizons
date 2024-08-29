@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -22,27 +19,50 @@ public class Interactable : MonoBehaviour
     public bool UIShown { get; set; }
     
     /// <summary>
+    /// Whether this interactable has checked if the player is in its range.
+    /// </summary>
+    public bool Validated { get; private set; }
+    
+    /// <summary>
     /// Whether the player is in range of the interactable (in its region) and can interact with it.
     /// </summary>
     public bool PlayerInRange { get; set; }
-    
+
     /// <summary>
     /// Whether the player is in range of any interactable. This property gets reset
     /// on LateUpdate, meaning reads of it from within LateUpdate are unreliable.
     /// </summary>
-    public static bool AnyInRange { get; private set; }
+    public static bool AnyInRange {
+        get {
+            foreach (var interactable in All) {
+                if (!interactable.Validated) {
+                    interactable.CheckForPlayer();
+                }
+
+                if (interactable.PlayerInRange)
+                    return true;
+            }
+
+            return false;
+        }
+    }
     
     /// <summary>
     /// A list of all of the <see cref="Interactable"/> instances in the scene.
     /// </summary>
     public static readonly List<Interactable> All = new();
-    
-    void Update()
+
+    void CheckForPlayer()
     {
         var player = PlayerController.Main;
         PlayerInRange = new Bounds(transform.position.WithZ(0), RegionSize).Contains(player.Position.WithZ(0));
-        if (PlayerInRange) {
-            AnyInRange = true;
+        Validated = true;
+    }
+    
+    void Update()
+    {
+        if (!Validated) {
+            CheckForPlayer();
         }
         
         if (Input.GetButtonDown("Primary") && PlayerInRange) {
@@ -56,7 +76,9 @@ public class Interactable : MonoBehaviour
 
     void LateUpdate()
     {
-        AnyInRange = false;
+        foreach (var interactable in All) {
+            interactable.Validated = false;
+        }
     }
 
     void Awake() => All.Add(this);
