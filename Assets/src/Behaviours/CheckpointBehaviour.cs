@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 
 public class CheckpointBehaviour : MonoBehaviour
 {
@@ -10,7 +8,6 @@ public class CheckpointBehaviour : MonoBehaviour
     public GameObject ReachedEffectPrefab;
     public SpriteRenderer Renderer;
     public Sprite ReachedSprite;
-    public Sprite DefaultSprite;
     public AudioSource Audio;
     public AudioClip ReachedSfx;
     public SpriteRenderer XrayRenderer;
@@ -42,18 +39,6 @@ public class CheckpointBehaviour : MonoBehaviour
             
             player.Recall(true);
         }
-    }
-
-    public static void ResetCheckpoints()
-    {
-        foreach (var checkpoint in Reached) {
-            checkpoint.HasBeenReached = false;
-            checkpoint.Renderer.sprite = checkpoint.DefaultSprite;
-            checkpoint.XrayRenderer.sprite = checkpoint.DefaultSprite;
-        }
-        
-        Reached.Clear();
-        Current = null;
     }
 
 #if UNITY_EDITOR
