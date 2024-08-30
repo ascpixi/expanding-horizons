@@ -6,7 +6,6 @@ using UnityEngine;
 public class LevelData : MonoBehaviour
 {
     [Header("General")]
-    public int LevelIndex;
     public bool FadeIn = true;
 
     [Header("Player Capabilities")]
