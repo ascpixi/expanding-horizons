@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -13,10 +12,6 @@ public class XrayTilemap : MonoBehaviour
 
     void Start()
     {
-        // checkpoints = FindObjectsOfType<CheckpointBehaviour>()
-        //     .Select(x => x.XrayRenderer)
-        //     .ToArray();
-        
         var cloned = Instantiate(CloneTarget, transform);
         var rend = cloned.GetComponent<TilemapRenderer>();
         rend.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;

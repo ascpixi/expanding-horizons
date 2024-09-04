@@ -25,13 +25,15 @@ public class Countdown
     /// </summary>
     public void Advance()
     {
-        if (!Running) return;
+        if (!Running)
+            return;
 
         if(Position > 0f) {
             Position -= Time.deltaTime;
 
-            if (Position < 0f)
+            if (Position < 0f) {
                 Position = 0f;
+            }
         }
     }
 
